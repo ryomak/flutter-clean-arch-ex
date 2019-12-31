@@ -6,20 +6,22 @@ import 'package:flutter_app_1/src/domain/repository/UserRepository.dart';
 import 'package:flutter_app_1/src/data/repository/impl/UserRepositoryImpl.dart';
 import 'package:flutter_app_1/src/data/client/UserClient.dart';
 import 'package:flutter_app_1/src/data/client/impl/UserClientImpl.dart';
-import 'package:flutter_app_1/src/domain/entity/User.dart';
 import 'package:flutter_app_1/src/data/datasource/LocalCacheUser.dart';
 import 'package:flutter_app_1/src/data/datasource/impl/LocalCacheUserImpl.dart';
 import 'package:flutter_app_1/src/core/network/NetWorkInfo.dart';
+import 'package:flutter_app_1/src/usecase/GetUsers.dart';
+import 'package:flutter_app_1/src/usecase/impl/GetUsersImpl.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
 
   // Use cases
-  sl.registerLazySingleton(() => GetConcreteNumberTrivia(sl()));
-  sl.registerLazySingleton(() => GetRandomNumberTrivia(sl()));
+  sl.registerLazySingleton<GetUsers>(
+      ()=> GetUsersImpl(userRepository:sl()),
+  );
 
-  // Repository
+    // Repository
   sl.registerLazySingleton<UserRepository>(
         () => UserRepositoryImpl(
       localCacheUser: sl(),
@@ -38,7 +40,7 @@ Future<void> init() async {
   );
 
   //! Core
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(DataConnectionChecker()));
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
