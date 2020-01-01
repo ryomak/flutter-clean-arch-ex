@@ -15,7 +15,7 @@ class Input  {
 }
 
 class Output {
-  Future<Either<Failure, User>> user;
+  Future<Either<Failure, User>> result;
 
-  Output({this.user});
+  Output({this.result});
 }

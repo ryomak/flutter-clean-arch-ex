@@ -10,7 +10,7 @@ class GetUsersImpl implements GetUsers{
 
   @override
   Output get(Input input){
-    final output = Output(user: userRepository.findOneByID(input.id));
+    final output = Output(result: userRepository.findOneByID(input.id));
     return output;
   }
 }

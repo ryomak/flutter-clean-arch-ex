@@ -11,15 +11,24 @@ import 'package:flutter_app_1/src/data/datasource/impl/LocalCacheUserImpl.dart';
 import 'package:flutter_app_1/src/core/network/NetWorkInfo.dart';
 import 'package:flutter_app_1/src/usecase/GetUsers.dart';
 import 'package:flutter_app_1/src/usecase/impl/GetUsersImpl.dart';
+import 'package:flutter_app_1/src/presentation/bloc/UserBloc.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
 
+  // Bloc
+  sl.registerFactory(
+        () => UserBloc(
+      getUsers: sl(),
+    ),
+  );
+
   // Use cases
   sl.registerLazySingleton<GetUsers>(
       ()=> GetUsersImpl(userRepository:sl()),
   );
+
 
     // Repository
   sl.registerLazySingleton<UserRepository>(
