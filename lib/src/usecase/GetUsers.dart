@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:flutter_app_1/src/domain/entity/User.dart';
 
 abstract class GetUsers {
-  Output get(Input input);
+  Future<Output> get(Input input);
 }
 
 class Input  {
@@ -15,7 +15,9 @@ class Input  {
 }
 
 class Output {
-  Future<Either<Failure, User>> result;
+  Either<Failure, User> result;
 
-  Output({this.result});
+  Output([Either<Failure, User> result]){
+    this.result = result;
+  }
 }

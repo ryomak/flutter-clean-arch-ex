@@ -12,7 +12,7 @@ class UserModel extends User {
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'].toInt(),
-      name: json['number'],
+      name: json['name'],
       gender: json['gender'],
     );
   }

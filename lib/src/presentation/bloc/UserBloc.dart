@@ -28,8 +28,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   ) async* {
     if (event is GetUserById){
       yield UserLoading();
-      final user = await getUsers.get(Input(event.id)).result;
-      yield user.fold(
+      final output = await getUsers.get(new Input(event.id));
+      yield output.result.fold(
             (failure) => Error(message: _mapFailureToMessage(failure)),
             (user) => UserLoaded(user: user),
       );

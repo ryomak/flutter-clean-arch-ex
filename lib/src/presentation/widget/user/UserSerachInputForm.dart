@@ -15,12 +15,12 @@ class _SearchInputFormState extends State<UserSearchInputForm> {
   @override
   Widget build(BuildContext context) {
     _onSearchButtonPressed() {
-      _userIdController.clear();
       BlocProvider.of<UserBloc>(context).add(
         GetUserById(
           id: int.parse(_userIdController.text),
         ),
       );
+      _userIdController.clear();
     }
 
     return BlocListener<UserBloc, UserState>(
@@ -49,11 +49,6 @@ class _SearchInputFormState extends State<UserSearchInputForm> {
                   onPressed:
                   state is! UserLoading ? _onSearchButtonPressed : null,
                   child: Text('SEARCH'),
-                ),
-                Container(
-                  child: state is UserLoading
-                      ? CircularProgressIndicator()
-                      : null,
                 ),
               ],
             ),

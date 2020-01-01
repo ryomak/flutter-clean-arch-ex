@@ -9,8 +9,9 @@ class GetUsersImpl implements GetUsers{
   GetUsersImpl({@required this.userRepository});
 
   @override
-  Output get(Input input){
-    final output = Output(result: userRepository.findOneByID(input.id));
-    return output;
+  Future<Output>get(Input input)async{
+    final result = await userRepository.findOneByID(input.id);
+    print(result);
+    return Output(result);
   }
 }
